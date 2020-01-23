@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'create-article' %}" class="btn btn-primary">게시물 작성하기</a>
+<div>
+    <ul class="list-group list-group-flush">
+        {% for article in articles %}
+        <a class="list-group-item" href="{% url 'detail-article' article.pk %}">
+            <li style="list-style:none;">{{ article.title }}</li>
+        </a>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
