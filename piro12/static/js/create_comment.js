@@ -9,10 +9,10 @@ function submit_comment(url, data) {
         success:function(response) {
             console.log(response)
             $('.comment_container').append(response)
-						$('input[name=content]').val('')
+            $('input[name=content]').val('')
         },// 요청 완료 시
         error:function(jqXHR) {
-						console.log(jqXHR)
+            console.log(jqXHR)
             alert('제대로 입력하시게나')
         },// 요청 실패.
     })
