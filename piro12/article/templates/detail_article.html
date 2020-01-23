@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load static %}
     {{ article.content }}
     <hr>
     <form action="{% url 'create-comment' article.pk %}" method="POST">
@@ -9,14 +10,24 @@
         <label for="content">댓글</label>
         <input type="text" class="form-control" name="content" id="content" placeholder="제목을 입력해">
       </div>
-        <button class="btn btn-primary" type="submit">작성하기</button>
+        <button class="btn btn-primary submit_button" type="submit">작성하기</button>
     </form>
     <hr>
-    <div class="comment_box">
+    <div class="comment_container">
         {% for comment in article.comments.all %}
         <div>
             {{ comment.content }} | 글쓴이: {{ comment.author }}
         </div>
         {% endfor %}
     </div>
+<script src="{% static 'js/ajax_settings.js' %}"></script>
+<script src="{% static 'js/create_comment.js' %}"></script>
+<script>
+    $('.submit_button').click(function(e) {
+        e.preventDefault()
+        var url = '{% url "create-comment" article.pk %}'
+        comment = $('input[name=content]').val()
+        var content = submit_comment(url, comment)
+    })
+</script>
 {% endblock %}

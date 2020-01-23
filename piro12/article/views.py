@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, render_to_response
 from django.urls import reverse
-
+from django.http import HttpResponse
 from article.models import Article, Comment
 
 
@@ -44,4 +44,7 @@ def create_comment(request, pk):
             content=content,
             author=request.user
         )
+        return render_to_response('comment.html', {'comment': comment})
+    else:
+        return HttpResponse('댓글 내용을 입력해야 합니다.', 400)
     return redirect(reverse('detail-article', kwargs={'pk': article.pk}))
